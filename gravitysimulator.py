@@ -108,7 +108,7 @@ def find_orbit():
 	L_2 = m_2*module(r_2)*module(v_2)*sine(r_2,v_2)
 
 	return(print(
-		"Object 1: ",
+		"\nObject 1: ",
 		"\n X: ",x_1,"m",
 		"\n Y: ",y_1,"m",
 		"\n Z: ",z_1,"m",
@@ -116,6 +116,7 @@ def find_orbit():
 		"\n Vel. Y: ",vy_1,"m/s",
 		"\n Vel. Z: ",vz_1,"m/s",
 		"\n Angular Momentum: ",L_1,"kg*m^2*s^−1",
+		"\n\n Radius of the orbit:",module(r_1),"m",
 		"\nObject 2: ",
 		"\n X: ",x_2,"m",
 		"\n Y: ",y_2,"m",
@@ -123,6 +124,7 @@ def find_orbit():
 		"\n Vel. X: ",vx_2,"m/s",
 		"\n Vel. Y: ",vy_2,"m/s",
 		"\n Vel. Z: ",vz_2,"m/s",
-		"\n Angular Momentum: ",L_2,"kg*m^2*s^−1"))
+		"\n Angular Momentum: ",L_2,"kg*m^2*s^−1"
+		"\n\n Radius of the orbit:", module(r_2),"m"))
 
 find_orbit()
