@@ -51,63 +51,88 @@ def mod(a):
 	if a<0:
 		return -a
 
+def crossprod(a,b):
+	i_1 = a[1]*b[2]
+	i_2 = a[2]*b[1]
+	j_1 = a[2]*b[0]
+	j_2 = a[0]*b[2]
+	k_1 = a[0]*b[1]
+	k_2 = a[1]*b[0]
+	i = i_1 - i_2
+	j = j_1 - j_2
+	k = k_1 - k_2
+	return [i,j,k]
+
 #finally, the orbit:
 def find_orbit():
 	print("Welcome to our program! All units on S.I. and please give us the initial conditions! We take the origin to be the center of mass, our coordinates are orthonormal")
-	#initial conditions:
-	m_1 = eval(input("Mass of the first object (kg): ", ))
-	m_2 = eval(input("Mass of the second object (kg): ", ))
+	#What kind of problem?
+	print("\nHow many bodies are you inserting in your problem?")
+	answer = input("Number of bodies: ", )
+	if answer == "2":
+		#initial conditions:
+		m_1 = eval(input("Mass of the first object (kg): ", ))
+		m_2 = eval(input("Mass of the second object (kg): ", ))
 
-	t = eval(input("Time (s): ", ))
+		t = eval(input("Time (s): ", ))
 
-	x_1 = eval(input("X coordinate of first object (m): ", ))
-	y_1 = eval(input("Y coordinate of first object (m): ", ))
-	z_1 = eval(input("Z coordinate of first object (m): ", ))
-	r_1 = [x_1,y_1,z_1]
+		x_1 = eval(input("X coordinate of first object (m): ", ))
+		y_1 = eval(input("Y coordinate of first object (m): ", ))
+		z_1 = eval(input("Z coordinate of first object (m): ", ))
 
-	x_2 = -(m_1/m_2)*x_1
-	y_2 = -(m_1/m_2)*y_1
-	z_2 = -(m_1/m_2)*z_1
-	r_2 = [x_2,y_2,z_2]
+		x_2 = -(m_1/m_2)*x_1
+		y_2 = -(m_1/m_2)*y_1
+		z_2 = -(m_1/m_2)*z_1
 
-	vx_1 = eval(input("X velocity of first object (m/s): ", ))
-	vy_1 = eval(input("Y velocity of first object (m/s): ", ))
-	vz_1 = eval(input("Z velocity of first object (m/s): ", ))
-	v_1 = [vx_1,vy_1,vz_1]
+		vx_1 = eval(input("X velocity of first object (m/s): ", ))
+		vy_1 = eval(input("Y velocity of first object (m/s): ", ))
+		vz_1 = eval(input("Z velocity of first object (m/s): ", ))
 
-	vx_2 = -(m_1/m_2)*vx_1
-	vy_2 = -(m_1/m_2)*vy_1
-	vz_2 = -(m_1/m_2)*vz_1
-	v_2 = [vx_2,vy_2,vz_2]
+		vx_2 = -(m_1/m_2)*vx_1
+		vy_2 = -(m_1/m_2)*vy_1
+		vz_2 = -(m_1/m_2)*vz_1
 
-	#fundamental and definitional derivations:
-	m_red = (m_1 * m_2)/(m_1 + m_2)
+		#fundamental and definitional derivations:
+		m_red = (m_1 * m_2)/(m_1 + m_2)
 
-	#trial: loop for variation of quantities
-	timepass = 0
-	dt = t/200000
-	while t>=timepass and t!=0:
-		x_2 = x_2 + vx_2*dt
-		vx_2 = vx_2 - (G*m_1*(x_1-x_2)/((mod(x_1-x_2))**3))*dt
-		x_1 = x_1 + vx_1*dt
-		vx_1 = vx_1 + (G*m_2*(x_1-x_2)/((mod(x_1-x_2))**3))*dt
+		#trial: loop for variation of quantities
+		timepass = 0
+		dt = t/200000
+		while t>=timepass and t!=0:
+			x_2 = x_2 + vx_2*dt
+			vx_2 = vx_2 - (G*m_1*(x_1-x_2)/((mod(x_1-x_2))**3))*dt
+			x_1 = x_1 + vx_1*dt
+			vx_1 = vx_1 + (G*m_2*(x_1-x_2)/((mod(x_1-x_2))**3))*dt
 
-		y_2 = y_2 + vy_2*dt
-		vy_2 = vy_2 - (G*m_1*(y_1-y_2)/((mod(y_1-y_2))**3))*dt
-		y_1 = y_1 + vy_1*dt
-		vy_1 = vy_1 + (G*m_2*(y_1-y_2)/((mod(y_1-y_2))**3))*dt
+			y_2 = y_2 + vy_2*dt
+			vy_2 = vy_2 - (G*m_1*(y_1-y_2)/((mod(y_1-y_2))**3))*dt
+			y_1 = y_1 + vy_1*dt
+			vy_1 = vy_1 + (G*m_2*(y_1-y_2)/((mod(y_1-y_2))**3))*dt
 
-		z_2 = z_2 + vz_2*dt
-		vz_2 = vz_2 - (G*m_1*(z_1-z_2)/((mod(z_1-z_2))**3))*dt
-		z_1 = z_1 + vz_1*dt
-		vz_1 = vz_1 + (G*m_2*(z_1-z_2)/((mod(z_1-z_2))**3))*dt
+			z_2 = z_2 + vz_2*dt
+			vz_2 = vz_2 - (G*m_1*(z_1-z_2)/((mod(z_1-z_2))**3))*dt
+			z_1 = z_1 + vz_1*dt
+			vz_1 = vz_1 + (G*m_2*(z_1-z_2)/((mod(z_1-z_2))**3))*dt
 
-		timepass = timepass + dt
+			timepass = timepass + dt
 
-	L_1 = m_1*module(r_1)*module(v_1)*sine(r_1,v_1)
-	L_2 = m_2*module(r_2)*module(v_2)*sine(r_2,v_2)
+		r_1 = [x_1,y_1,z_1]
+		r_2 = [x_2,y_2,z_2]
 
-	return(print(
+		v_1 = [vx_1,vy_1,vz_1]
+		v_2 = [vx_2,vy_2,vz_2]
+
+		l_1 = dotprod(r_1,v_1)
+		l_2 = dotprod(r_2,v_2)
+
+		L_1 = m_1*module(l_1)
+		L_2 = m_2*module(l_2)
+
+		K_1 = (m_1**2)*module(dotprod(v_1,l_1))-(G*m_1*m_2)
+
+		E_1 = K_1/(G*m_1*m_1*m_2)
+
+		return(print(
 		"\nObject 1: ",
 		"\n X: ",x_1,"m",
 		"\n Y: ",y_1,"m",
@@ -116,8 +141,9 @@ def find_orbit():
 		"\n Vel. Y: ",vy_1,"m/s",
 		"\n Vel. Z: ",vz_1,"m/s",
 		"\n Angular Momentum: ",L_1,"kg*m^2*s^−1",
-		"\n\n Radius of the orbit:",module(r_1),"m",
-		"\nObject 2: ",
+		"\n Radius of the orbit: ",module(r_1),"m",
+		"\n Eccentricity: ",E_1,
+		"\n\nObject 2: ",
 		"\n X: ",x_2,"m",
 		"\n Y: ",y_2,"m",
 		"\n Z: ",z_2,"m"
@@ -125,6 +151,6 @@ def find_orbit():
 		"\n Vel. Y: ",vy_2,"m/s",
 		"\n Vel. Z: ",vz_2,"m/s",
 		"\n Angular Momentum: ",L_2,"kg*m^2*s^−1"
-		"\n\n Radius of the orbit:", module(r_2),"m"))
+		"\n Radius of the orbit:", module(r_2),"m"))
 
 find_orbit()
