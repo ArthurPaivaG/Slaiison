@@ -35,7 +35,15 @@ def sin(angle):
 	while angle<0:
 		angle = angle + (2*pi)
 	if 0<=angle<=(2*pi):
-		return angle-((angle**3)/factorial(3))+((angle**5)/factorial(5))-((angle**7)/factorial(7))+((angle**9)/factorial(9))-((angle**11)/factorial(11))+((angle**13)/factorial(13))-((angle**15)/factorial(15))+((angle**17)/factorial(17))-((angle**19)/factorial(19))+((angle**21)/factorial(21))
+		x = angle
+		n = 5
+		b = 3
+		while n>0:
+			x = x - (angle**b)/factorial(b)
+			x = x + (angle**(b+2))/factorial(b+2)
+			b = b + 4
+			n = n-1
+		return x
 
 def cos(angle):
 	while angle>(2*pi):
@@ -43,8 +51,16 @@ def cos(angle):
 	while angle<0:
 		angle = angle + (2*pi)
 	if 0<=angle<=(2*pi):
-		return 1-((angle**2)/factorial(2))+((angle**4)/factorial(4))-((angle**6)/factorial(6))+((angle**8)/factorial(8))-((angle**10)/factorial(10))+((angle**12)/factorial(12))-((angle**14)/factorial(14))+((angle**16)/factorial(16))-((angle**18)/factorial(18))+((angle**20)/factorial(20))-((angle**22)/factorial(22))
-
+		x = 1
+		n = 5
+		b = 2
+		while n>0:
+			x = x - (angle**b)/factorial(b)
+			x = x + (angle**(b+2))/factorial(b+2)
+			b = b + 4
+			n = n - 1
+		return x
+		
 def mod(a):
 	if a>=0:
 		return a
@@ -152,5 +168,3 @@ def find_orbit():
 		"\n Vel. Z: ",vz_2,"m/s",
 		"\n Angular Momentum: ",L_2,"kg*m^2*s^−1"
 		"\n Radius of the orbit:", module(r_2),"m"))
-
-find_orbit()
